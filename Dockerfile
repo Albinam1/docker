@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 ENV SAMTOOLS='/usr/local/soft/samtools-1.19.2'
 ENV HTSLIB='/usr/local/soft/htslib-1.19.1'
-ENV LIBDEFLATE='/usr/local/soft/libdeflate-1.20'
+ENV LIBDEFLATE='/usr/local/soft/libdeflate-1.10'
 ENV BCFTOOLS='/usr/local/soft/bcftools-1.19'
 ENV VCFTOOLS='/usr/local/soft/vcftools-0.1.16'
 ENV SOFT='usr/local/soft'
@@ -55,7 +55,7 @@ RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19
     make install
 
 
-#libdeflate-1.20.tar.gz released 5 days ago
+#libdeflate-v.1.10 released on Feb 7, 2022 (последняя версию не удалось скачать)
 RUN wget https://github.com/ebiggers/libdeflate/archive/refs/tags/v1.10.tar.gz && \
     tar  -xvzf v1.10.tar.gz && \
     rm v1.10.tar.gz && \
@@ -84,13 +84,6 @@ RUN wget https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools
     make install
 
 
-# #libdeflate-1.20.tar.gz released 5 days ago
-# RUN wget https://github.com/ebiggers/libdeflate/archive/refs/tags/v1.20.tar.gz && \
-#     tar  -xvzf v1.20.tar.gz && \
-#     rm v1.20.tar.gz && \
-#     cd libdeflate-1.20 && \
-#     make && \
-#     make DESTDIR=$LIBDEFLATE install
 
 ENV PATH=${PATH}:$SAMTOOLS:$HTSLIB:$LIBDEFLATE:$BCFTOOLS:$VCFTOOLS:$SOFT
 
