@@ -62,6 +62,17 @@ RUN wget https://github.com/ebiggers/libdeflate/archive/refs/tags/v1.10.tar.gz &
     cd libdeflate-1.10 && \
     make && \
     make DESTDIR=$LIBDEFLATE install
+    
+# libdeflate-1.20.tar.gz released 5 days ago
+# RUN wget https://github.com/ebiggers/libdeflate/releases/download/v1.20/libdeflate-1.20.tar.gz && \
+#     tar  -xvzf libdeflate-1.20.tar.gz && \
+#     rm libdeflate-1.20.tar.gz && \
+#     cd libdeflate-1.20 && \
+#     autoheader && \
+#     autoconf -i -Wno-syntax && \
+#     ./configure --prefix=$LIBDEFLATE && \
+#     make && \
+#     make install
 
 # bcftools-1.19 released Dec 12, 2023
 RUN wget https://github.com/samtools/bcftools/releases/download/1.19/bcftools-1.19.tar.bz2 && \
