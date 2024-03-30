@@ -18,5 +18,9 @@
 - bcftools -1.19
 - vcftools -0.1.16
 
-Скрин прилагается:
+Скрин терминала прилагается:
 ![Скрин](https://github.com/Albinam1/docker/assets/96633706/be401ef1-528b-4b8e-b7c3-6ba25839cdbf)
+
+Скрин докера:
+![image docker](https://github.com/Albinam1/docker/assets/96633706/78220cb2-e5fb-4fb9-bb07-0c9bf27a15de)
+
