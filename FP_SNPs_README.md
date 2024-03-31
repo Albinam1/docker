@@ -67,5 +67,4 @@ for rs in rs_table_chr1:
 
 И пока только удалось обработать 1 и 2 хромосому
 
-
-
+<img width="436" alt="Снимок экрана 2024-03-31 в 7 40 43 PM" src="https://github.com/Albinam1/docker/assets/96633706/07f9eab3-557b-4066-871d-8fdf0c951367">
