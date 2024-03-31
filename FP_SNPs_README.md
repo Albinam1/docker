@@ -1,0 +1,71 @@
+## Подготовка данных:
+Сначала скачала данные
+Привела талицу к более-менее похожему VCF-формату. Для этого:
+
+1. Удалила координаты по GRCh37;
+   
+``` python
+data_ = data.drop(['GB37_position'], axis=1)
+```
+   
+3. Переименовала и поменяла колонки местами;
+
+``` python
+data_ = data_.rename(columns={'GB38_position': 'POS', 'chromosome': 'CHROM', 'rs#': 'ID'})
+data__ = data_[['CHROM', 'POS', 'ID', 'allele1', 'allele2']]
+```
+
+4. Добавила префиксы к колонкам *CHROM*, *ID*
+   -Для этого необходимо сначало было изменить тип данных:
+   ``` python
+   data__['CHROM'] = data__['CHROM'].astype(str)
+   data__['ID'] = data__['ID'].astype(str)
+   ```
+``` python
+data__['CHROM'] = data__['CHROM'].apply(lambda x: "chr" + x)
+data__['ID'] = data__['ID'].apply(lambda x: "rs" + x)
+```
+5. Удалила варианты с X-хромосомой, крайние 1000 FP в файле SNPs (в файле это хромосома с номером 23),
+
+``` python
+data_no_x = data__[data__['CHROM'] != 'chr23']
+```
+Такая табличка у меня получилась
+<img width="544" alt="Снимок экрана 2024-03-31 в 6 51 43 PM" src="https://github.com/Albinam1/docker/assets/96633706/0e259ced-d9fd-4e92-8292-a2faef711eaa">
+
+
+6. Скачала получившийся файл:
+``` python
+data_no_x.to_csv('FP_SNPs_10k_GB38_twoAllelsFormat.tsv', sep='\t', index=False)
+```
+7. Заново открыла посмотрела
+``` python
+df= pd.read_csv('/content/FP_SNPs_10k_GB38_twoAllelsFormat.tsv', sep='\t')
+```
+
+Далее т.к. у меня памяти не так много, чтобы скачать референсный геном я решила референсы найти другим способом-
+Я решила через rs на сайте https://www.ncbi.nlm.nih.gov/snp/ информацию добавить в таблицу и с помощью этого можно восстановить информацию 
+о референсном значении
+
+Представлен код для первой хромосомы:
+
+``` python
+record_chr1 = []
+for rs in rs_table_chr1:
+  url = f"https://www.ncbi.nlm.nih.gov/snp/{rs}/"
+  #print(url)
+  response = requests.get(url)
+  soup = BeautifulSoup(response.text, "html.parser")
+  for rows in soup.find("dt"):
+    position_element = soup.find('dt', string='Position').find_next('span').string.strip()
+    #print(position_element)
+    allele_element = soup.find('dt', string='Alleles').find_next('dd').string.strip()
+    #print(allele_element)
+
+  record_chr1.append([position_element, allele_element])
+```
+
+И пока только удалось обработать 1 и 2 хромосому
+
+
+
