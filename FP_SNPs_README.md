@@ -65,9 +65,32 @@ for rs in rs_table_chr1:
   record_chr1.append([position_element, allele_element])
 ```
 
-И пока только удалось обработать 1 и 2 хромосому
+8. Обработала все хромосомы выписывая референс
 
 <img width="436" alt="Снимок экрана 2024-03-31 в 7 40 43 PM" src="https://github.com/Albinam1/docker/assets/96633706/07f9eab3-557b-4066-871d-8fdf0c951367">
 
 
-https://colab.research.google.com/drive/1lNR0pPuZSU2QgzfIJZi6oFI2RGriVAdg?usp=sharing - скрипт 
+https://colab.research.google.com/drive/1lNR0pPuZSU2QgzfIJZi6oFI2RGriVAdg?usp=sharing - скрипт для первой хромосомы
+
+9. Объединила все датафреймы в один большой
+Объединенная таблица содержала дупликаты, удалила их Итоговая таблица получилась размером: (10000, 6)
+<img width="820" alt="Снимок экрана 2024-04-03 в 6 13 14 PM" src="https://github.com/Albinam1/docker/assets/96633706/ca02f37d-9a5a-4a32-a83a-431239c87ece">
+
+Получила такую таблицу
+<img width="1114" alt="Снимок экрана 2024-04-03 в 6 21 14 PM" src="https://github.com/Albinam1/docker/assets/96633706/70a344a2-48ae-44b5-808b-37a98170363d">
+
+10. #В allele3 записываю значение из allele1 и allele2 отличное от референса
+```{python}
+Data_['allele3'] = Data_.apply(lambda x: x['allele1'] if x['allele1'] != x['REF'] else x['allele2'], axis=1)
+```
+<img width="990" alt="Снимок экрана 2024-04-03 в 6 23 36 PM" src="https://github.com/Albinam1/docker/assets/96633706/bbc43eb2-f6af-4b8d-b33b-a679faaa6cf6">
+
+11. Проанализировала таблицу по значениям, у кторых allele1 и allele2 оба не совпадают с референсом - их 9ть:
+<img width="855" alt="Снимок экрана 2024-04-03 в 6 24 00 PM" src="https://github.com/Albinam1/docker/assets/96633706/01f881b6-5dad-4e92-8cfc-4695f8ff3ac8">
+
+Это потому что возможно несколько альтернативных вариантов, не один. Все они попались в данном файле
+<img width="971" alt="Снимок экрана 2024-04-03 в 8 04 20 PM" src="https://github.com/Albinam1/docker/assets/96633706/3334ea88-5829-4284-bc46-86957523f93e">
+
+Действительно, несколько альтернативных вариантов может быть 
+
+
